@@ -1,14 +1,11 @@
 let path = require('path');
 let webpack = require('webpack');
-let NpmInstallPlugin = require('npm-install-webpack-plugin');
 let autoprefixer = require('autoprefixer');
 let precss = require('precss');
 
 module.exports = {
-    devtool: 'cheap-module-eval-source-map',
+    devtool: 'source-map',
     entry: [
-        'webpack-hot-middleware/client',
-        'babel-polyfill',
         './src/index'
     ],
     output: {
@@ -17,15 +14,23 @@ module.exports = {
         publicPath: '/dist/'
     },
     plugins: [
-        new webpack.optimize.OccurrenceOrderPlugin(),
-        new webpack.HotModuleReplacementPlugin(),
-        new webpack.NoErrorsPlugin(),
-        new NpmInstallPlugin()
+        new webpack.optimize.DedupePlugin(),
+        new webpack.optimize.UglifyJsPlugin({
+            minimize: true,
+            compress: {
+                warnings: true
+            }
+        }),
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production')
+            }
+        })
     ],
     module: {
         loaders: [
             {
-                loaders: ['react-hot', 'babel-loader'],
+                loaders: ['babel-loader'],
                 include: [
                     path.resolve(__dirname, "src"),
                 ],
@@ -42,7 +47,7 @@ module.exports = {
             },
             {
                 test: /\.(eot|svg|ttf|woff|woff2)$/,
-                loader: 'file?name=public/fonts/[name].[ext]'
+                loader: 'file?name=fonts/[name].[ext]'
             },
             {
                 test: /\.(png|jpe?g|gif)$/,
@@ -54,3 +59,4 @@ module.exports = {
         return [autoprefixer, precss];
     }
 };
+

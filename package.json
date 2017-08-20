@@ -4,7 +4,9 @@
   "description": "planner_app",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "node ./app.js",
+    "build": "webpack --config ./webpack.config.js --progress --colors",
+    "heroku-postbuild": "webpack --config ./webpack.prod.config.js --progress --colors",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -47,6 +49,7 @@
     "react-dom": "0.14.9",
     "react-redux": "4.0.6",
     "redux": "3.3.1",
+    "redux-devtools-extension": "2.13.2",
     "redux-logger": "3.0.6",
     "redux-thunk": "2.2.0",
     "webpack": "1.12.12"
