@@ -1,1 +1,3 @@
-export const ADD_NEW_LIST = 'ADD_NEW_LIST';
+export const ADD_LIST_REQUEST = 'ADD_LIST_REQUEST';
+export const ADD_LIST_SUCCESS = 'ADD_LIST_SUCCESS';
+export const ADD_LIST_CANCELED = 'ADD_LIST_CANCELED';

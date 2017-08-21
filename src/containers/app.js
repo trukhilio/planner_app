@@ -3,15 +3,18 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import Main from '../components/main/index';
-// import * as pageActions from '../actions/pageAction';
-// import * as userActions from '../actions/userAction';
-// import Button from "../components/button/index";
+import * as mainActions from '../actions/mainAction';
 
 class App extends Component {
     render(){
+        const { main } = this.props;
+        const { addList } = this.props.mainActions;
         return(
             <div>
-                <Main/>
+                <Main
+                    newAdd={main.newAdd}
+                    addList={addList}
+                />
             </div>
         )
     }
@@ -23,12 +26,10 @@ function mapStateToProps (state) {
     }
 }
 
-// function mapDispatchToProps(dispatch){
-//     return {
-//         mainActions: bindActionCreators(mainActions, dispatch)
-//     }
-// }
+function mapDispatchToProps(dispatch){
+    return {
+        mainActions: bindActionCreators(mainActions, dispatch)
+    }
+}
 
-export default connect(mapStateToProps
-    // mapDispatchToProps
-)(App)
+export default connect(mapStateToProps, mapDispatchToProps)(App)

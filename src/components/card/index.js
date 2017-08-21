@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 export default class Card extends Component{
     render(){
-        let nameCard = "New card";
+        const { nameCard }= this.props;
         return(
             <div>
                 <h3>

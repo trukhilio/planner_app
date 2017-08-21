@@ -1,13 +1,17 @@
-import ADD_NEW_LIST from '../constants/main';
+import {
+    ADD_LIST_REQUEST,
+    ADD_LIST_SUCCESS,
+    ADD_LIST_CANCELED
+} from '../constants/main';
 
 const initialState = {
-    listArr: []
+    newAdd: false
 };
 
 export default function main(state=initialState, action){
     switch (action.type) {
-        case ADD_NEW_LIST:
-            return { ...state, listArr: action.payload };
+        case ADD_LIST_REQUEST:
+            return { ...state, newAdd: true };
 
         default:
             return state;
