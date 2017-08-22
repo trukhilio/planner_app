@@ -1,17 +1,18 @@
 import React, { PropTypes, Component } from 'react';
 import Button from '../button/index';
-import List from '../list/index'
 
 export default class Main extends Component{
     render(){
-        const { newAdd, addList } = this.props;
+        const { newAdd, addListRequest, addList, addListCanceled } = this.props;
         const listCreator =
             <div>
                 <input type="text" placeholder="Column name"/>
-                <Button>
+                <Button
+                    onClick={addList}>
                     Add
                 </Button>
-                <Button>
+                <Button
+                    onClick={addListCanceled}>
                     Cancel
                 </Button>
             </div>;
@@ -21,9 +22,8 @@ export default class Main extends Component{
                     listCreator
                      :
                     <div>
-                        <List/>
                         <Button
-                            onClick={addList}>
+                            onClick={addListRequest}>
                             Add new list...
                         </Button>
                     </div>
@@ -33,8 +33,9 @@ export default class Main extends Component{
     }
 }
 
-
 Main.propTypes = {
     newAdd: PropTypes.bool.isRequired,
-    addList: PropTypes.func.isRequired
+    addListRequest: PropTypes.func.isRequired,
+    addList: PropTypes.func.isRequired,
+    addListCanceled: PropTypes.func.isRequired
 };

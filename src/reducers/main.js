@@ -5,14 +5,18 @@ import {
 } from '../constants/main';
 
 const initialState = {
-    newAdd: false
+    newAdd: false,
+    listArr: []
 };
 
 export default function main(state=initialState, action){
     switch (action.type) {
         case ADD_LIST_REQUEST:
             return { ...state, newAdd: true };
-
+        case ADD_LIST_SUCCESS:
+            return { ...state, newAdd: false, listArr: action.payload };
+        case ADD_LIST_CANCELED:
+            return { ...state, newAdd: false };
         default:
             return state;
     }
