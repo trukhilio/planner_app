@@ -16,20 +16,20 @@ export function addListRequest(dispatch) {
 
 export function addList(name, id, dispatch){
     return function(dispatch){
-        if (name || id){
-            if (name === '' || 'undefined'){
-                name = 'New Column'
-            }
-            const list = {
-                nameList: name,
-                idList: id
-            };
-            listArr.push(list);
-            dispatch({
-                type: ADD_LIST_SUCCESS,
-                payload: listArr
-            });
+        if (name === ''){
+            name = 'New Column'
         }
+        console.log(name);
+        const list = {
+            nameList: name,
+            idList: id,
+            cards: []
+        };
+        listArr.push(list);
+        dispatch({
+            type: ADD_LIST_SUCCESS,
+            payload: listArr
+        });
     }
 }
 

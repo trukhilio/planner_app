@@ -12,7 +12,7 @@ class App extends Component {
         const { addListRequest, addList, addListCanceled } = this.props.mainActions;
         return(
             <div>
-                <List/>
+                <List listArr={main.listArr}/>
                 <Main
                     newAdd={main.newAdd}
                     addListRequest={addListRequest}
