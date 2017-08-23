@@ -5,12 +5,7 @@ export default class Menu extends Component{
     render(){
         return(
             <div>
-                <Button>
-                    Rename list
-                </Button>
-                <Button>
-                    Delete list
-                </Button>
+
             </div>
         )
     }

@@ -19,7 +19,6 @@ export function addList(name, id, dispatch){
         if (name === ''){
             name = 'New Column'
         }
-        console.log(name);
         const list = {
             nameList: name,
             idList: id,
