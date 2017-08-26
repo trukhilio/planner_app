@@ -4,22 +4,28 @@ import { bindActionCreators } from 'redux';
 
 import Main from '../components/main/index';
 import * as mainActions from '../actions/mainAction';
-import * as listActions from '../actions/listAction';
 import List from "../components/list/index";
 
 class App extends Component {
     render(){
-        const { main, list } = this.props;
-        const { addListRequest, addList, addListCanceled } = this.props.mainActions;
-        const { renameListRequest, renameListCanceled } = this.props.listActions;
+        const { main } = this.props;
+        const {
+            addListRequest,
+            addList,
+            addListCanceled,
+            renameListRequest,
+            renameListCanceled,
+            renameListSuccess
+        } = this.props.mainActions;
         return(
             <div>
                 <List
                     listArr={main.listArr}
                     renameListRequest={renameListRequest}
-                    changerName={list.changerName}
-                    idItem={list.idItem}
+                    changerName={main.changerName}
+                    idItem={main.idItem}
                     renameListCanceled={renameListCanceled}
+                    renameListSuccess={renameListSuccess}
                 />
                 <Main
                     newAdd={main.newAdd}
@@ -34,15 +40,13 @@ class App extends Component {
 
 function mapStateToProps (state) {
     return {
-        main: state.main,
-        list: state.list
+        main: state.main
     }
 }
 
 function mapDispatchToProps(dispatch){
     return {
-        mainActions: bindActionCreators(mainActions, dispatch),
-        listActions: bindActionCreators(listActions, dispatch)
+        mainActions: bindActionCreators(mainActions, dispatch)
     }
 }
 

@@ -17,9 +17,13 @@ export default function list(state=initialState, action){
     switch (action.type) {
         case RENAME_LIST_REQUEST:
             return { ...state, changerName: true, idItem: action.payload };
+        case RENAME_LIST_SUCCESS:
+            return { ...state, changerName: false, listArr: action.payload };
         case RENAME_LIST_CANCELED:
-            return { ...state, changerName: false };
+            return { ...state, changerName: false, idItem: action.payload };
+
         default:
             return state;
     }
 }
+

@@ -8,22 +8,30 @@ import {
     ADD_CARD_CANCELED
 } from '../constants/list';
 
-let idItem;
-
 export function renameListRequest(id, dispatch) {
     return function(dispatch){
-        idItem = id;
         dispatch({
             type: RENAME_LIST_REQUEST,
-            payload: idItem
+            payload: id
         });
     }
 }
 
+export function renameListSuccess(id, name, dispatch) {
+    return function(dispatch){
+        dispatch({
+            type: RENAME_LIST_SUCCESS,
+            payload: name
+        });
+    }
+}
+
+
 export function renameListCanceled(dispatch) {
     return function(dispatch){
         dispatch({
-            type: RENAME_LIST_CANCELED
+            type: RENAME_LIST_CANCELED,
+            payload: ''
         });
     }
 }
