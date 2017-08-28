@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Main from '../components/main/index';
+import Creator from '../components/creator/index';
+import Card from '../components/card/index';
 import * as mainActions from '../actions/mainAction';
 import List from "../components/list/index";
 
@@ -15,23 +16,45 @@ class App extends Component {
             addListCanceled,
             renameListRequest,
             renameListCanceled,
-            renameListSuccess
+            renameListSuccess,
+            deleteList,
+            addCard,
+            addCardCanceled,
+            addCardRequest,
+            renameCardRequest,
+            renameCardSuccess,
+            renameCardCanceled,
+            deleteCard
         } = this.props.mainActions;
         return(
             <div>
                 <List
-                    listArr={main.listArr}
-                    renameListRequest={renameListRequest}
-                    changerName={main.changerName}
-                    idItem={main.idItem}
-                    renameListCanceled={renameListCanceled}
-                    renameListSuccess={renameListSuccess}
+                    itemArr={main.listArr}
+                    renameItemRequest={renameListRequest}
+                    changerName={main.changerNameList}
+                    idItem={main.idListSelected}
+                    renameItemCanceled={renameListCanceled}
+                    renameItemSuccess={renameListSuccess}
+                    deleteItem={deleteList}
+                    addItemRequest={addCardRequest}
+                    newAdd={main.newAddCard}
+                    addItem={addCard}
+                    addItemCanceled={addCardCanceled}
+                    itemName="card"
+                    renameCardRequest={renameCardRequest}
+                    renameCardSuccess={renameCardSuccess}
+                    renameCardCanceled={renameCardCanceled}
+                    deleteCard={deleteCard}
+                    changerNameCard={main.changerNameCard}
+                    idCardSelected={main.idCardSelected}
                 />
-                <Main
-                    newAdd={main.newAdd}
-                    addListRequest={addListRequest}
-                    addList={addList}
-                    addListCanceled={addListCanceled}
+                <Creator
+                    newAdd={main.newAddList}
+                    addItemRequest={addListRequest}
+                    addItem={addList}
+                    addItemCanceled={addListCanceled}
+                    defaultName='Column name'
+                    itemName='list'
                 />
             </div>
         )

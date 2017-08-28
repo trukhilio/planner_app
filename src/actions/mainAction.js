@@ -12,6 +12,13 @@ import {
     ADD_CARD_SUCCESS,
     ADD_CARD_CANCELED
 } from '../constants/list';
+import {
+    RENAME_CARD_REQUEST,
+    RENAME_CARD_SUCCESS,
+    RENAME_CARD_CANCELED,
+    DELETE_CARD
+} from '../constants/card';
+
 
 export function addListRequest(dispatch) {
     return function(dispatch){
@@ -23,17 +30,10 @@ export function addListRequest(dispatch) {
 
 export function addList(name, id, dispatch){
     return function(dispatch){
-        if (name === ''){
-            name = 'New Column'
-        }
-        const list = {
-            nameList: name,
-            idList: id,
-            cards: []
-        };
         dispatch({
             type: ADD_LIST_SUCCESS,
-            payload: list
+            name,
+            id
         });
     }
 }
@@ -73,3 +73,73 @@ export function renameListCanceled(dispatch) {
         });
     }
 }
+
+export function deleteList(id, dispatch) {
+    return function (dispatch) {
+        dispatch({
+            type: DELETE_LIST,
+            id
+        })
+    }
+}
+
+export function addCardRequest(id, dispatch) {
+    return function(dispatch){
+        dispatch({
+            type: ADD_CARD_REQUEST,
+            id
+        });
+    }
+}
+export function addCard(name, idCard, idList, dispatch) {
+    return function(dispatch){
+        dispatch({
+            type: ADD_CARD_SUCCESS,
+            name,
+            idCard,
+            idList
+        });
+    }
+}
+export function addCardCanceled(dispatch) {
+    return function(dispatch){
+        dispatch({
+            type: ADD_CARD_CANCELED
+        });
+    }
+}
+export function renameCardRequest(id, dispatch) {
+    return function(dispatch){
+        dispatch({
+            type: RENAME_CARD_REQUEST,
+            id
+        });
+    }
+}
+export function renameCardSuccess(idCard, idList, name, dispatch) {
+    return function(dispatch){
+        dispatch({
+            type: RENAME_CARD_SUCCESS,
+            idCard,
+            idList,
+            name
+        });
+    }
+}
+export function renameCardCanceled(dispatch) {
+    return function(dispatch){
+        dispatch({
+            type: RENAME_CARD_CANCELED
+        });
+    }
+}
+export function deleteCard(idCard, idList, dispatch) {
+    return function(dispatch){
+        dispatch({
+            type: DELETE_CARD,
+            idCard,
+            idList
+        });
+    }
+}
+
