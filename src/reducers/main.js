@@ -17,7 +17,8 @@ import {
     RENAME_CARD_SUCCESS,
     RENAME_CARD_CANCELED,
     DELETE_CARD
-} from '../constants/card';
+} from '../constants/card'
+import {REHYDRATE} from 'redux-persist/constants';
 
 const initialState = {
     newAddList: false,
@@ -31,6 +32,10 @@ const initialState = {
 
 export default function main(state=initialState, action){
     switch (action.type) {
+        case REHYDRATE:
+            let incoming = action.payload.main;
+            if (incoming) return {...state, ...incoming };
+            return state;
         case ADD_LIST_REQUEST:
             return { ...state, newAddList: true };
         case ADD_LIST_SUCCESS:

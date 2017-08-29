@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import Creator from '../components/creator/index';
-import Card from '../components/card/index';
 import * as mainActions from '../actions/mainAction';
 import List from "../components/list/index";
 

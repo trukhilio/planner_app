@@ -1,5 +1,6 @@
 import { createStore, applyMiddleware} from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension/logOnlyInProduction';
+import { persistStore, autoRehydrate } from 'redux-persist';
 import rootReducer from '../reducers';
 import thunk from 'redux-thunk';
 
@@ -8,9 +9,10 @@ export default function configureStore (initialState) {
         rootReducer,
         initialState,
         composeWithDevTools(
-            applyMiddleware(thunk))
+            applyMiddleware(thunk),
+            autoRehydrate())
     );
-
+    persistStore(store);
     if (module.hot) {
         module.hot.accept('../reducers', () => {
             const nextRootReducer = require('../reducers').default;
