@@ -1,5 +1,5 @@
 import React, { PropTypes, Component } from 'react';
-import { DropTarget } from 'react-dnd';
+import { DropTarget, DragSource } from 'react-dnd';
 import { ItemTypes } from '../../constants/ItemTypes';
 import Button from '../button/index';
 import Card from '../card/index';
@@ -23,15 +23,12 @@ const listTarget = {
 
     drop(props, monitor) {
         const item = monitor.getItem();
-        // console.log(item);
-        // console.log(props);
-        // const data = {
-        //     indexList: item.parentIndex,
-        //     indexCard: item.index,
-        //     indexListTarget: props.parentIndex,
-        //     indexCardTarget: props.index,
-        // };
-        // props.moveCard(data.indexCard,data.indexList,data.indexCardTarget,data.indexListTarget);
+        const data = {
+            indexList: item.indexList,
+            indexListTarget: props.indexList,
+        };
+        console.log(data);
+        props.moveList(data.indexList,data.indexListTarget);
     },
 };
 
@@ -60,6 +57,7 @@ class List extends Component {
             canDrop,
             isOver,
             connectDropTarget,
+            connectDragSource,
             renameItemRequest,
             changerName,
             renameItemSuccess,
@@ -74,7 +72,6 @@ class List extends Component {
             idList,
             nameList,
             cards,
-            key,
             renameCardRequest,
             renameCardSuccess,
             renameCardCanceled,
@@ -82,6 +79,7 @@ class List extends Component {
             changerNameCard,
             idCardSelected,
             moveCard,
+            moveList,
             indexList
         }=this.props;
         const isActive = canDrop && isOver;
@@ -163,9 +161,11 @@ class List extends Component {
                 </div>;
         return(
             connectDropTarget(
-                <div>
-                    {list}
-                </div>
+                connectDragSource(
+                    <div>
+                        {list}
+                    </div>
+                )
             )
         )
     }
@@ -188,4 +188,4 @@ List.propTypes = {
     newAdd: PropTypes.bool.isRequired
 };
 
-export default DropTarget(ItemTypes.LIST, listTarget, collect)(List);
+export default DropTarget(ItemTypes.LIST, listTarget, collect)(DragSource(ItemTypes.LIST, listSource, collectSource)(List));

@@ -25,7 +25,8 @@ class App extends Component {
             renameCardSuccess,
             renameCardCanceled,
             deleteCard,
-            moveCard
+            moveCard,
+            moveList
         } = this.props.mainActions;
         return(
             <div>
@@ -54,6 +55,7 @@ class App extends Component {
                         key={indexList}
                         indexList={indexList}
                         moveCard={moveCard}
+                        moveList={moveList}
                     />
                     )
                 )}

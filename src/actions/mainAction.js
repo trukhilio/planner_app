@@ -157,12 +157,12 @@ export function moveCard(indexCard,indexList,indexCardTarget,indexListTarget, di
     }
 }
 
-export function moveList(indexList,indexListTarget, dispatch){
+export function moveList(indexOldList,indexNewListTarget, dispatch){
     return function (dispatch) {
         dispatch({
             type: MOVE_LIST,
-            indexList,
-            indexListTarget
+            indexOldList,
+            indexNewListTarget
         })
     }
 }

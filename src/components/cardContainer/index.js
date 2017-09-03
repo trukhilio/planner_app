@@ -9,8 +9,6 @@ const cardTarget = {
 
     drop(props, monitor) {
         const item = monitor.getItem();
-        console.log(item);
-        console.log(props);
         const data = {
             indexList: item.indexList,
             indexCard: item.indexCard,
