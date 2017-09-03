@@ -7,3 +7,5 @@ export const DELETE_LIST = 'DELETE_LIST';
 export const ADD_CARD_REQUEST = 'ADD_CARD_REQUEST';
 export const ADD_CARD_SUCCESS = 'ADD_CARD_SUCCESS';
 export const ADD_CARD_CANCELED = 'ADD_CARD_CANCELED';
+
+export const MOVE_LIST = 'MOVE_LIST';

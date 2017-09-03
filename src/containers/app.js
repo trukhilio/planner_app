@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-
+import { DragDropContext } from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
 import Creator from '../components/creator/index';
 import * as mainActions from '../actions/mainAction';
 import List from "../components/list/index";
@@ -23,30 +24,40 @@ class App extends Component {
             renameCardRequest,
             renameCardSuccess,
             renameCardCanceled,
-            deleteCard
+            deleteCard,
+            moveCard
         } = this.props.mainActions;
         return(
             <div>
-                <List
-                    itemArr={main.listArr}
-                    renameItemRequest={renameListRequest}
-                    changerName={main.changerNameList}
-                    idItem={main.idListSelected}
-                    renameItemCanceled={renameListCanceled}
-                    renameItemSuccess={renameListSuccess}
-                    deleteItem={deleteList}
-                    addItemRequest={addCardRequest}
-                    newAdd={main.newAddCard}
-                    addItem={addCard}
-                    addItemCanceled={addCardCanceled}
-                    itemName="card"
-                    renameCardRequest={renameCardRequest}
-                    renameCardSuccess={renameCardSuccess}
-                    renameCardCanceled={renameCardCanceled}
-                    deleteCard={deleteCard}
-                    changerNameCard={main.changerNameCard}
-                    idCardSelected={main.idCardSelected}
-                />
+                {main.listArr.map((item,indexList)=>(
+                    <List
+                        renameItemRequest={renameListRequest}
+                        changerName={main.changerNameList}
+                        idItem={main.idListSelected}
+                        renameItemCanceled={renameListCanceled}
+                        renameItemSuccess={renameListSuccess}
+                        deleteItem={deleteList}
+                        addItemRequest={addCardRequest}
+                        newAdd={main.newAddCard}
+                        addItem={addCard}
+                        addItemCanceled={addCardCanceled}
+                        itemName="card"
+                        renameCardRequest={renameCardRequest}
+                        renameCardSuccess={renameCardSuccess}
+                        renameCardCanceled={renameCardCanceled}
+                        deleteCard={deleteCard}
+                        changerNameCard={main.changerNameCard}
+                        idCardSelected={main.idCardSelected}
+                        idList={item.idList}
+                        nameList={item.nameList}
+                        cards={item.cards}
+                        key={indexList}
+                        indexList={indexList}
+                        moveCard={moveCard}
+                    />
+                    )
+                )}
+
                 <Creator
                     newAdd={main.newAddList}
                     addItemRequest={addListRequest}
@@ -72,4 +83,4 @@ function mapDispatchToProps(dispatch){
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default DragDropContext(HTML5Backend)(connect(mapStateToProps, mapDispatchToProps)(App))

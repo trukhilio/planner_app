@@ -10,13 +10,15 @@ import {
     DELETE_LIST,
     ADD_CARD_REQUEST,
     ADD_CARD_SUCCESS,
-    ADD_CARD_CANCELED
+    ADD_CARD_CANCELED,
+    MOVE_LIST
 } from '../constants/list';
 import {
     RENAME_CARD_REQUEST,
     RENAME_CARD_SUCCESS,
     RENAME_CARD_CANCELED,
-    DELETE_CARD
+    DELETE_CARD,
+    MOVE_CARD
 } from '../constants/card'
 import {REHYDRATE} from 'redux-persist/constants';
 
@@ -118,6 +120,22 @@ export default function main(state=initialState, action){
                 }
             );
             return { ...state, listArr: deleteCard};
+        case MOVE_CARD:
+            const movingCardArr = state.listArr.slice();
+            const { indexCard, indexList, indexCardTarget, indexListTarget } = action;
+            if (indexList === indexListTarget ) {
+                movingCardArr[indexList].cards.splice(indexCardTarget, 0, movingCardArr[indexList].cards.splice(indexCard, 1)[0]);
+            } else {
+                movingCardArr[indexListTarget].cards.splice(indexListTarget, 0, movingCardArr[indexList].cards[indexCard]);
+                movingCardArr[indexList].cards.splice(indexCard, 1);
+            }
+            return { ...state, listArr: movingCardArr};
+        case MOVE_LIST:
+            const movingListArr = state.listArr.slice();
+            const { indexOldList, indexNewListTarget } = action;
+            const temp = movingListArr.splice(indexOldList, 1)[0];
+            movingListArr.splice(indexNewListTarget, 0, temp);
+            return { ...state, listArr: movingListArr};
         default:
             return state;
     }

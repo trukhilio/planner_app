@@ -3,3 +3,5 @@ export const RENAME_CARD_SUCCESS = 'RENAME_CARD_SUCCESS';
 export const RENAME_CARD_CANCELED = 'RENAME_CARD_CANCELED';
 
 export const DELETE_CARD = 'DELETE_CARD';
+
+export const MOVE_CARD = 'MOVE_CARD';
