@@ -42,7 +42,6 @@ class App extends Component {
                         newAdd={main.newAddCard}
                         addItem={addCard}
                         addItemCanceled={addCardCanceled}
-                        itemName="card"
                         renameCardRequest={renameCardRequest}
                         renameCardSuccess={renameCardSuccess}
                         renameCardCanceled={renameCardCanceled}
@@ -61,11 +60,10 @@ class App extends Component {
                 )}
 
                 <Creator
-                    newAdd={main.newAddList}
+                    condition={main.newAddList}
                     addItemRequest={addListRequest}
                     addItem={addList}
                     addItemCanceled={addListCanceled}
-                    defaultName='Column name'
                     itemName='list'
                 />
             </div>

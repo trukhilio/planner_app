@@ -1,5 +1,7 @@
 import React, { PropTypes, Component } from 'react';
 import Button from '../button/index';
+import Input from '../input/index';
+import { uuidv4 } from '../../utility/index';
 
 export default class Creator extends Component{
     constructor(){
@@ -15,30 +17,23 @@ export default class Creator extends Component{
         this.setState({ name: ''})
     }
     render(){
-        const { newAdd, addItemRequest, addItem, addItemCanceled, itemName } = this.props;
-        function uuidv4() {
-            return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-                (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-            )
-        }
-        const listCreator =
-            <div>
-                <input type="text" placeholder={'New ' + itemName + ' name'} onChange={this.handleName.bind(this)}/>
-                <Button onClick={e => {e.preventDefault();addItem(this.state.name, uuidv4());this.clearFunc()}}>
-                    Add {itemName}
-                </Button>
-                <Button onClick={addItemCanceled}>
-                    Cancel
-                </Button>
-            </div>;
+        const { condition, addItemRequest, addItem, addItemCanceled, itemName, idItem, idCurrent } = this.props;
         return(
             <div>
-                { newAdd ?
-                    listCreator
+                { condition ?
+                    <div>
+                        <Input placeholder={'New ' + itemName + ' name'} onChange={this.handleName.bind(this)}/>
+                        <Button onClick={e => {e.preventDefault();addItem(this.state.name, uuidv4(), idItem);this.clearFunc()}}>
+                            Add {itemName}
+                        </Button>
+                        <Button onClick={addItemCanceled}>
+                            Cancel
+                        </Button>
+                    </div>
                      :
                     <div>
                         <Button
-                            onClick={addItemRequest}>
+                            onClick={e => {e.preventDefault();addItemRequest(idCurrent)}}>
                             Add new {itemName}...
                         </Button>
                     </div>
@@ -49,9 +44,11 @@ export default class Creator extends Component{
 }
 
 Creator.propTypes = {
-    newAdd: PropTypes.bool.isRequired,
+    condition: PropTypes.bool.isRequired,
     addItemRequest: PropTypes.func.isRequired,
     addItem: PropTypes.func.isRequired,
     addItemCanceled: PropTypes.func.isRequired,
-    itemName: PropTypes.string.isRequired
+    itemName: PropTypes.string.isRequired,
+    idItem: PropTypes.string,
+    idCurrent: PropTypes.string
 };

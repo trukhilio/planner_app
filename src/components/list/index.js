@@ -1,9 +1,10 @@
 import React, { PropTypes, Component } from 'react';
 import { DropTarget, DragSource } from 'react-dnd';
 import { ItemTypes } from '../../constants/ItemTypes';
-import Button from '../button/index';
 import Card from '../card/index';
 import CardContainer from "../cardContainer/index";
+import Creator from "../creator/index";
+import Base from "../base/index";
 
 const listSource = {
     beginDrag(props) {
@@ -40,18 +41,6 @@ function collect(connect, monitor) {
     };
 }
 class List extends Component {
-    constructor(){
-        super();
-        this.state = {
-            name: ''
-        };
-    }
-    handleName(e){
-        this.setState({ name: e.target.value })
-    }
-    clearFunc(){
-        this.setState({ name: ''})
-    }
     render(){
         const {
             canDrop,
@@ -64,7 +53,6 @@ class List extends Component {
             renameItemCanceled,
             idItem,
             deleteItem,
-            itemName,
             addItemRequest,
             addItem,
             addItemCanceled,
@@ -83,34 +71,18 @@ class List extends Component {
             indexList
         }=this.props;
         const isActive = canDrop && isOver;
-        function uuidv4() {
-            return ([1e7]+-1e3+-4e3+-8e3+-1e11).replace(/[018]/g, c =>
-                (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-            )
-        }
         let list =
                 <div>
-                    {(changerName === true && idList===idItem) ?
-                        <div>
-                            <input type="text" defaultValue={nameList} onChange={this.handleName.bind(this)}/>
-                            <Button
-                                onClick={e => {e.preventDefault();renameItemSuccess(idList, this.state.name);this.clearFunc()}}>
-                                Save
-                            </Button>
-                            <Button
-                                onClick={renameItemCanceled}>
-                                Cancel
-                            </Button>
-                        </div>
-                        :
-                        <h3>{nameList}</h3>
-                    }
-                    <Button onClick={e => {e.preventDefault();renameItemRequest(idList)}}>
-                        Rename list
-                    </Button>
-                    <Button onClick={e => {e.preventDefault();deleteItem(idList)}}>
-                        Delete list
-                    </Button>
+                    <Base
+                        condition={(changerName === true && idList===idItem)}
+                        renameItemRequest={renameItemRequest}
+                        renameItemSuccess={renameItemSuccess}
+                        renameItemCanceled={renameItemCanceled}
+                        deleteItem={deleteItem}
+                        idItem={idList}
+                        itemType="list"
+                        currentName={nameList}
+                        tag="3"/>
                     {cards.length!==0 ?
                         cards.map((item ,indexCard)=>(
                             <CardContainer
@@ -142,22 +114,15 @@ class List extends Component {
                             moveCard={moveCard}
                         />
                     }
-                    {(newAdd === true && idList===idItem) ?
-                        <div>
-                            <input type="text" placeholder={'New ' + itemName + ' name'} onChange={this.handleName.bind(this)}/>
-                            <Button onClick={e => {e.preventDefault();addItem(this.state.name, uuidv4(), idItem);this.clearFunc()}}>
-                                Add {itemName}
-                            </Button>
-                            <Button onClick={addItemCanceled}>
-                                Cancel
-                            </Button>
-                        </div>
-                        :
-                        <Button
-                            onClick={e => {e.preventDefault();addItemRequest(idList)}}>
-                            Add new card...
-                        </Button>
-                    }
+                    <Creator
+                        addItemRequest={addItemRequest}
+                        addItem={addItem}
+                        addItemCanceled={addItemCanceled}
+                        itemName="card"
+                        condition={(newAdd === true && idList===idItem)}
+                        idItem={idItem}
+                        idCurrent={idList}
+                    />
                 </div>;
         return(
             connectDropTarget(
@@ -182,7 +147,6 @@ List.propTypes = {
     renameItemCanceled: PropTypes.func.isRequired,
     deleteItem: PropTypes.func.isRequired,
     addItemRequest: PropTypes.func.isRequired,
-    itemName: PropTypes.string.isRequired,
     addItem: PropTypes.func.isRequired,
     addItemCanceled: PropTypes.func.isRequired,
     newAdd: PropTypes.bool.isRequired

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import Button from '../button/index';
+import React, { Component, PropTypes } from 'react';
 import { DragSource } from 'react-dnd';
 import { ItemTypes } from '../../constants/ItemTypes';
+import Base from "../base/index";
 
 const cardSource = {
     beginDrag(props) {
@@ -16,19 +16,7 @@ function collectSource(connect, monitor) {
 }
 
 class Card extends Component{
-    constructor(){
-        super();
-        this.state = {
-            name: ''
-        }
-    }
-    handleName(e){
-        this.setState({ name: e.target.value })
-    }
-    clearFunc(){
-        this.setState({ name: ''})
-    }
-    render(props){
+    render(){
         const {
                 isDragging,
                 connectDragSource,
@@ -44,39 +32,30 @@ class Card extends Component{
                 indexCard,
                 indexList
         } = this.props;
-        const opacity = isDragging ? 0.4 : 1;
-        let cards =
-                <div>
-                    {(changerName === true && idCard===idItem) ?
-                        <div>
-                            <input type="text" defaultValue={nameCard} onChange={this.handleName.bind(this)}/>
-                            <Button
-                                onClick={e => {e.preventDefault();renameItemSuccess(idCard, idList, this.state.name);this.clearFunc()}}>
-                                Save
-                            </Button>
-                            <Button
-                                onClick={renameItemCanceled}>
-                                Cancel
-                            </Button>
-                        </div>
-                        :
-                        <h4>{nameCard}</h4>
-                    }
-                    <Button onClick={e => {e.preventDefault();renameItemRequest(idCard)}}>
-                        Rename card
-                    </Button>
-                    <Button onClick={e => {e.preventDefault();deleteCard(idCard, idList)}}>
-                        Delete card
-                    </Button>
-                </div>;
+        // const opacity = isDragging ? 1 : 1;
         return(
-                connectDragSource( cards )
+                connectDragSource(
+                    <div>
+                        <Base
+                            condition={(changerName === true && idCard===idItem)}
+                            idItem={idCard}
+                            renameItemRequest={renameItemRequest}
+                            renameItemSuccess={renameItemSuccess}
+                            renameItemCanceled={renameItemCanceled}
+                            deleteItem={deleteCard}
+                            idParent={idList}
+                            currentName={nameCard}
+                            itemType='card'
+                            tag="4"
+                        />
+                    </div>
+                )
         )
     }
 }
 
-// Card.propTypes = {
-//     connectDragSource: PropTypes.func.isRequired,
-//     isDragging: PropTypes.bool.isRequired,
-// };
+Card.propTypes = {
+    connectDragSource: PropTypes.func.isRequired,
+    isDragging: PropTypes.bool.isRequired,
+};
 export default DragSource(ItemTypes.CARD, cardSource, collectSource)(Card);

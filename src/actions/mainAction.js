@@ -118,7 +118,7 @@ export function renameCardRequest(id, dispatch) {
         });
     }
 }
-export function renameCardSuccess(idCard, idList, name, dispatch) {
+export function renameCardSuccess(idCard, name, idList, dispatch) {
     return function(dispatch){
         dispatch({
             type: RENAME_CARD_SUCCESS,
