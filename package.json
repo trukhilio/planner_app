@@ -21,7 +21,6 @@
   "homepage": "https://github.com/trukhilio/planner_app#readme",
   "devDependencies": {
     "babel-core": "6.4.5",
-    "babel-loader": "6.2.1",
     "babel-plugin-transform-runtime": "6.4.3",
     "babel-preset-es2015": "6.3.13",
     "babel-preset-react": "6.3.13",
@@ -40,6 +39,7 @@
   },
   "dependencies": {
     "autoprefixer": "6.3.1",
+    "babel-loader": "6.2.1",
     "babel-polyfill": "6.3.14",
     "babel-runtime": "6.3.19",
     "express": "4.13.4",
