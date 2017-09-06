@@ -2,6 +2,8 @@ import React, { Component, PropTypes } from 'react';
 import { DragSource } from 'react-dnd';
 import { ItemTypes } from '../../constants/ItemTypes';
 import Base from "../base/index";
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import s from './style.scss';
 
 const cardSource = {
     beginDrag(props) {
@@ -18,7 +20,6 @@ function collectSource(connect, monitor) {
 class Card extends Component{
     render(){
         const {
-                isDragging,
                 connectDragSource,
                 changerName,
                 idItem,
@@ -32,10 +33,9 @@ class Card extends Component{
                 indexCard,
                 indexList
         } = this.props;
-        // const opacity = isDragging ? 1 : 1;
         return(
                 connectDragSource(
-                    <div>
+                    <div className={s.card}>
                         <Base
                             condition={(changerName === true && idCard===idItem)}
                             idItem={idCard}
@@ -46,7 +46,7 @@ class Card extends Component{
                             idParent={idList}
                             currentName={nameCard}
                             itemType='card'
-                            tag="4"
+                            tag="3"
                         />
                     </div>
                 )
@@ -57,5 +57,16 @@ class Card extends Component{
 Card.propTypes = {
     connectDragSource: PropTypes.func.isRequired,
     isDragging: PropTypes.bool.isRequired,
+    changerName: PropTypes.bool.isRequired,
+    idItem: PropTypes.string.isRequired,
+    renameItemRequest: PropTypes.func.isRequired,
+    renameItemSuccess: PropTypes.func.isRequired,
+    renameItemCanceled: PropTypes.func.isRequired,
+    deleteCard: PropTypes.func.isRequired,
+    idList: PropTypes.string.isRequired,
+    idCard: PropTypes.string.isRequired,
+    nameCard: PropTypes.string.isRequired,
+    indexCard: PropTypes.number.isRequired,
+    indexList: PropTypes.number.isRequired
 };
-export default DragSource(ItemTypes.CARD, cardSource, collectSource)(Card);
+export default DragSource(ItemTypes.CARD, cardSource, collectSource)(withStyles(s)(Card));

@@ -1,0 +1,53 @@
+.container{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  min-height: 40px;
+  padding: 5px;
+  align-items: center;
+}
+.renameButton{
+  font-family: Source-Pro;
+  border-radius: 5px 0 0 5px;
+  padding: 0 5px;
+  color: #0064ac;
+  &:hover{
+    color: #ffffff;
+  }
+}
+.delButton, .renameButton{
+  border: none;
+  height: 25px;
+  cursor: pointer;
+}
+.delButton{
+  border-radius:0 5px 5px 0;
+  padding: 0;
+  width: 25px;
+  position:relative;
+  &:after, &:before {
+    top: 12px;
+    left: 0;
+    content:'';
+    position:absolute;
+    width:25px;
+    height:2px;
+    background-color: #ffffff;
+    border-radius:1px;
+  }
+  &:after{
+    transform:rotate(45deg);
+  }
+  &:before{
+    transform:rotate(-45deg);
+  }
+
+  &:hover:after, &:hover:before{
+    background-color: #700009;
+  }
+}
+.inputer{
+  border: none;
+  background-color: transparent;
+  font-family: Source-Pro;
+}

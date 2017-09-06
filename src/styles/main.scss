@@ -1,8 +1,12 @@
+@font-face{
+    font-family: Source-Pro;
+    src: url(../fonts/SourceCodePro-Medium.ttf);
+}
 body, div, h1, h2, h3, h4, p {
     margin: 0;
 }
-
-
-
-
-
+body{
+    font-family: Source-Pro;
+    letter-spacing: 0.3em;
+    word-spacing: -0.3em;
+}

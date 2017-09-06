@@ -5,6 +5,8 @@ import Card from '../card/index';
 import CardContainer from "../cardContainer/index";
 import Creator from "../creator/index";
 import Base from "../base/index";
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import s from './style.scss';
 
 const listSource = {
     beginDrag(props) {
@@ -28,7 +30,6 @@ const listTarget = {
             indexList: item.indexList,
             indexListTarget: props.indexList,
         };
-        console.log(data);
         props.moveList(data.indexList,data.indexListTarget);
     },
 };
@@ -70,7 +71,6 @@ class List extends Component {
             moveList,
             indexList
         }=this.props;
-        const isActive = canDrop && isOver;
         let list =
                 <div>
                     <Base
@@ -82,7 +82,7 @@ class List extends Component {
                         idItem={idList}
                         itemType="list"
                         currentName={nameList}
-                        tag="3"/>
+                        tag="2"/>
                     {cards.length!==0 ?
                         cards.map((item ,indexCard)=>(
                             <CardContainer
@@ -127,7 +127,7 @@ class List extends Component {
         return(
             connectDropTarget(
                 connectDragSource(
-                    <div>
+                    <div className={s.list}>
                         {list}
                     </div>
                 )
@@ -149,7 +149,20 @@ List.propTypes = {
     addItemRequest: PropTypes.func.isRequired,
     addItem: PropTypes.func.isRequired,
     addItemCanceled: PropTypes.func.isRequired,
-    newAdd: PropTypes.bool.isRequired
+    newAdd: PropTypes.bool.isRequired,
+    idList: PropTypes.string.isRequired,
+    nameList: PropTypes.string.isRequired,
+    cards: PropTypes.array.isRequired,
+    renameCardRequest: PropTypes.func.isRequired,
+    renameCardSuccess: PropTypes.func.isRequired,
+    renameCardCanceled: PropTypes.func.isRequired,
+    deleteCard: PropTypes.func.isRequired,
+    changerNameCard: PropTypes.bool.isRequired,
+    idCardSelected: PropTypes.string.isRequired,
+    moveCard: PropTypes.func.isRequired,
+    moveList: PropTypes.func.isRequired,
+    indexList: PropTypes.number.isRequired,
+    connectDragSource: PropTypes.func.isRequired
 };
 
-export default DropTarget(ItemTypes.LIST, listTarget, collect)(DragSource(ItemTypes.LIST, listSource, collectSource)(List));
+export default DropTarget(ItemTypes.LIST, listTarget, collect)(DragSource(ItemTypes.LIST, listSource, collectSource)(withStyles(s)(List)));

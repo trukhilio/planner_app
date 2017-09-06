@@ -1,8 +1,10 @@
 import React, { Component,PropTypes } from 'react';
 import Button from '../button/index';
 import Input from '../input/index';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import s from './style.scss';
 
-export default class Base extends Component{
+class Base extends Component{
     constructor(){
         super();
         this.state = {
@@ -21,8 +23,8 @@ export default class Base extends Component{
         return(
             <div>
                 { condition ?
-                    <div>
-                        <Input defaultValue={currentName} onChange={this.handleName.bind(this)}/>
+                    <div className={s.container}>
+                        <Input className={s.inputer} defaultValue={currentName} onChange={this.handleName.bind(this)}/>
                         <Button
                             onClick={e => {e.preventDefault();renameItemSuccess(idItem, this.state.name, idParent);this.clearFunc()}}>
                             Save
@@ -33,14 +35,16 @@ export default class Base extends Component{
                         </Button>
                     </div>
                     :
-                    <Tagger>{currentName}</Tagger>
+                    <div className={s.container}>
+                        <Tagger>{currentName}</Tagger>
+                        <div className={s.container}>
+                            <Button className={s.renameButton} title={"Rename " + itemType} onClick={e => {e.preventDefault();renameItemRequest(idItem)}}>
+                                Rename {itemType}
+                            </Button>
+                            <Button className={s.delButton} title={"Delete " + itemType} onClick={e => {e.preventDefault();deleteItem(idItem, idParent)}}/>
+                        </div>
+                    </div>
                 }
-                <Button onClick={e => {e.preventDefault();renameItemRequest(idItem)}}>
-                    Rename {itemType}
-                </Button>
-                <Button onClick={e => {e.preventDefault();deleteItem(idItem, idParent)}}>
-                    Delete {itemType}
-                </Button>
             </div>
         )
     }
@@ -58,3 +62,4 @@ Base.propTypes = {
     currentName: PropTypes.string.isRequired,
     tag: PropTypes.string.isRequired
 };
+export default withStyles(s)(Base);

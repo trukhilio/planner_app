@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { DropTarget } from 'react-dnd';
 import { ItemTypes } from '../../constants/ItemTypes';
 
@@ -30,19 +30,23 @@ class CardContainer extends Component{
     render(){
         const {
             connectDropTarget,
-            canDrop,
-            isDragging,
             indexCard,
             indexList,
             moveCard
         } = this.props;
         return(
             connectDropTarget(
-                <div style={{height: "50px"}}>
+                <div style={{height: "70px"}}>
                     {this.props.children}
                 </div>
             )
         )
     }
 }
+CardContainer.propTypes = {
+    connectDropTarget: PropTypes.func.isRequired,
+    moveCard: PropTypes.func.isRequired,
+    indexCard: PropTypes.number.isRequired,
+    indexList: PropTypes.number.isRequired
+};
 export default DropTarget(ItemTypes.CARD, cardTarget, collectTarget)(CardContainer)

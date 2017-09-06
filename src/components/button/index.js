@@ -5,6 +5,7 @@ export default class Button extends Component{
         return(
             <button
                 className={this.props.className}
+                title={this.props.title}
                 type="button"
                 onClick={this.props.onClick}>
                     {this.props.children}
