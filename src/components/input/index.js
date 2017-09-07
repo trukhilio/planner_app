@@ -1,14 +1,21 @@
-import React, { PropTypes } from 'react';
+import React, { PropTypes, Component } from 'react';
 
-const Input=(props)=>(
-    <input
-        type="text"
-        placeholder={props.placeholder}
-        onChange={props.onChange}
-        defaultValue={props.defaultValue}
-        className={props.className}
-    />
- );
+class Input extends Component {
+    render(){
+        return(
+            <textarea
+                autoFocus={true}
+                type="text"
+                placeholder={this.props.placeholder}
+                onChange={this.props.onChange}
+                defaultValue={this.props.defaultValue}
+                className={this.props.className}
+                onFocus={this.props.onFocus}
+            />
+        )
+    }
+
+}
 Input.propTypes = {
     placeholder: PropTypes.string,
     onChange: PropTypes.func.isRequired,

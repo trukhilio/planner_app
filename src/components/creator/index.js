@@ -2,8 +2,10 @@ import React, { PropTypes, Component } from 'react';
 import Button from '../button/index';
 import Input from '../input/index';
 import { uuidv4 } from '../../utility/index';
+import withStyles from 'isomorphic-style-loader/lib/withStyles';
+import s from './style.scss';
 
-export default class Creator extends Component{
+class Creator extends Component{
     constructor(){
         super();
         this.state = {
@@ -19,24 +21,25 @@ export default class Creator extends Component{
     render(){
         const { condition, addItemRequest, addItem, addItemCanceled, itemName, idItem, idCurrent } = this.props;
         return(
-            <div>
+            <div className={s.creator}>
                 { condition ?
-                    <div>
-                        <Input placeholder={'New ' + itemName + ' name'} onChange={this.handleName.bind(this)}/>
-                        <Button onClick={e => {e.preventDefault();addItem(this.state.name, uuidv4(), idItem);this.clearFunc()}}>
-                            Add {itemName}
-                        </Button>
-                        <Button onClick={addItemCanceled}>
-                            Cancel
-                        </Button>
+                    <div className={s.container}>
+                        <Input className={s.newCard} placeholder={'New ' + itemName + ' name'} onChange={this.handleName.bind(this)}/>
+                        <div className={s.buttons}>
+                            <Button className={s.addButton} onClick={e => {e.preventDefault();addItem(this.state.name, uuidv4(), idItem);this.clearFunc()}}>
+                                Add {itemName}
+                            </Button>
+                            <Button className={s.cancelButton} onClick={addItemCanceled}>
+                                Cancel
+                            </Button>
+                        </div>
                     </div>
                      :
-                    <div>
-                        <Button
-                            onClick={e => {e.preventDefault();addItemRequest(idCurrent)}}>
-                            Add new {itemName}...
-                        </Button>
-                    </div>
+                    <Button
+                        className={s.addNew}
+                        onClick={e => {e.preventDefault();addItemRequest(idCurrent)}}>
+                        Add new {itemName}...
+                    </Button>
                 }
             </div>
         )
@@ -52,3 +55,4 @@ Creator.propTypes = {
     idItem: PropTypes.string,
     idCurrent: PropTypes.string
 };
+export default withStyles(s)(Creator)

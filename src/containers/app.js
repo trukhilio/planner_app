@@ -7,6 +7,7 @@ import Creator from '../components/creator/index';
 import * as mainActions from '../actions/mainAction';
 import List from '../components/list/index';
 import MainContainer from '../components/mainContainer/index';
+import Header from '../components/header/index';
 
 class App extends Component {
     render(){
@@ -30,6 +31,8 @@ class App extends Component {
             moveList
         } = this.props.mainActions;
         return(
+            <div>
+                <Header/>
                 <MainContainer>
                     {main.listArr.map((item,indexList)=>(
                             <List
@@ -67,6 +70,8 @@ class App extends Component {
                         itemName='list'
                     />
                 </MainContainer>
+            </div>
+
         )
     }
 }

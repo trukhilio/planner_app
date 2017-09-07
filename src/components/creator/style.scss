@@ -1,0 +1,60 @@
+.container{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 50px;
+  padding: 0 5px;
+  align-items: baseline;
+  margin-bottom: 5px;
+}
+.newCard{
+  border: none;
+  background-color: transparent;
+  font-size: 18px;
+  min-height: 50px;
+  white-space: normal;
+  word-break: break-all;
+  resize: none;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  &:focus{
+    outline: none !important;
+    border: 2px solid #39A1DA;
+    border-radius: 5px;
+  }
+}
+
+.addButton{
+  border-radius: 5px 0 0 5px;
+}
+.cancelButton{
+  border-radius:0 5px 5px 0;
+}
+.addNew{
+  border-radius: 5px;
+  flex-shrink: 1;
+}
+.addButton, .cancelButton, .addNew{
+  border: none;
+  height: 25px;
+  cursor: pointer;
+  padding: 0 5px;
+  color: #0064ac;
+  background-color: #d7d7d7;
+  &:hover{
+    color: #ffffff;
+    background-color: #0064ac;
+  }
+}
+
+.buttons{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-shrink: 0;
+}
+.creator{
+  display: flex;
+  min-width: 250px;
+  margin-top: 20px;
+}

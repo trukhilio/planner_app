@@ -36,7 +36,7 @@ class CardContainer extends Component{
         } = this.props;
         return(
             connectDropTarget(
-                <div style={{height: "70px"}}>
+                <div style={{minHeight: "50px"}}>
                     {this.props.children}
                 </div>
             )

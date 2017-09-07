@@ -17,6 +17,11 @@ class Base extends Component{
     clearFunc(){
         this.setState({ name: ''})
     }
+    moveCaretAtEnd(e) {
+        let temp_value = e.target.value;
+        e.target.value = '';
+        e.target.value = temp_value
+    }
     render(){
         const { condition, idItem, renameItemRequest, renameItemSuccess, renameItemCanceled, deleteItem, idParent, currentName, tag, itemType } = this.props;
         const Tagger = `h${tag}`;
@@ -24,20 +29,24 @@ class Base extends Component{
             <div>
                 { condition ?
                     <div className={s.container}>
-                        <Input className={s.inputer} defaultValue={currentName} onChange={this.handleName.bind(this)}/>
-                        <Button
-                            onClick={e => {e.preventDefault();renameItemSuccess(idItem, this.state.name, idParent);this.clearFunc()}}>
-                            Save
-                        </Button>
-                        <Button
-                            onClick={renameItemCanceled}>
-                            Cancel
-                        </Button>
+                        <Input onFocus={this.moveCaretAtEnd} className={s.inputer} defaultValue={currentName} onChange={this.handleName.bind(this)}/>
+                        <div className={s.buttons}>
+                            <Button
+                                className={s.saveButton}
+                                onClick={e => {e.preventDefault();renameItemSuccess(idItem, this.state.name, idParent);this.clearFunc()}}>
+                                Save
+                            </Button>
+                            <Button
+                                className={s.cancelButton}
+                                onClick={renameItemCanceled}>
+                                Cancel
+                            </Button>
+                        </div>
                     </div>
                     :
                     <div className={s.container}>
-                        <Tagger>{currentName}</Tagger>
-                        <div className={s.container}>
+                        <Tagger className={s.text}>{currentName}</Tagger>
+                        <div className={s.buttons}>
                             <Button className={s.renameButton} title={"Rename " + itemType} onClick={e => {e.preventDefault();renameItemRequest(idItem)}}>
                                 Rename {itemType}
                             </Button>
