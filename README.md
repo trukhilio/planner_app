@@ -1,5 +1,6 @@
 # planner_app
 
+Hi for everyone!
 Planner_app is Kanban board style.
 How to us it:
  - Web: https://boardkanban.herokuapp.com/;
